@@ -1,0 +1,6 @@
+com\example\backend\MobileDevice\MobileDeviceServiceImpl.class
+com\example\backend\MobileDevice\IMobileDeviceService.class
+com\example\backend\MobileDevice\MobileDeviceController.class
+com\example\backend\BackendApplication.class
+com\example\backend\MobileDevice\MobileDevice.class
+com\example\backend\MobileDevice\MobileDeviceRepository.class
