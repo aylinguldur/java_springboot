@@ -1,8 +1,12 @@
 package com.example.backend.MobileDevice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -11,7 +15,7 @@ public class MobileDeviceServiceImpl implements IMobileDeviceService {
     @Autowired
     MobileDeviceRepository mobileDeviceRepository;
 
-    public void saveMobileDevice (MobileDevice mobileDevice){
+    public void saveMobileDevice(MobileDevice mobileDevice) {
         mobileDeviceRepository.save(mobileDevice);
     }
 
@@ -22,7 +26,7 @@ public class MobileDeviceServiceImpl implements IMobileDeviceService {
         return mobileDevice.get();
     }
 
-    public void deleteMobileDevice(int id){
+    public void deleteMobileDevice(int id) {
 
         mobileDeviceRepository.deleteById(id);
     }
@@ -38,21 +42,31 @@ public class MobileDeviceServiceImpl implements IMobileDeviceService {
 
         System.out.println(model.isEmpty());
 
-        if(brand != null && brand.isEmpty() != true){
+        if (brand != null && brand.isEmpty() != true) {
             existingMobileDevice.setBrand(mobileDevice.getBrand());
         }
-        if(model != null && model.isEmpty() != true){
+        if (model != null && model.isEmpty() != true) {
             existingMobileDevice.setModel(mobileDevice.getModel());
         }
-        if(os != null && os.isEmpty() != true){
+        if (os != null && os.isEmpty() != true) {
             existingMobileDevice.setOs(mobileDevice.getOs());
         }
-        if(osVersion != null && osVersion.isEmpty() != true){
+        if (osVersion != null && osVersion.isEmpty() != true) {
             existingMobileDevice.setOsVersion(mobileDevice.getOsVersion());
         }
 
         mobileDeviceRepository.save(existingMobileDevice);
 
+    }
+
+    @Override
+    public List<MobileDevice> getAllDevices(int pageNo, int pageSize) {
+
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+
+        Page<MobileDevice> pagedResult = mobileDeviceRepository.findAll(paging);
+
+        return pagedResult.toList();
 
     }
 }

@@ -1,7 +1,5 @@
 package com.example.backend.MobileDevice;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,5 +45,12 @@ public class MobileDeviceController {
     @PutMapping("/updateById/{id}")
     public void updateMobileDevice(@PathVariable("id") Integer id, @RequestBody MobileDevice mobileDevice){
         mobileDeviceService.updateMobileDeviceById(id,mobileDevice);
+    }
+
+    @GetMapping("/devices/{pageNo}/{pageSize}")
+    public ResponseEntity<List<MobileDevice>> getDevicesWithPagination(@PathVariable  Integer pageSize, @PathVariable Integer pageNo){
+        List<MobileDevice> list = mobileDeviceService.getAllDevices(pageNo,pageSize);
+        return new ResponseEntity<List<MobileDevice>>(list,new HttpHeaders(),HttpStatus.OK);
+
     }
 }

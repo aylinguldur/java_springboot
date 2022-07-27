@@ -1,7 +1,6 @@
 package com.example.backend.MobileDevice;
 
-
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 public interface IMobileDeviceService {
 
@@ -12,4 +11,6 @@ public interface IMobileDeviceService {
     void deleteMobileDevice(int id);
 
     void updateMobileDeviceById(Integer id, MobileDevice mobileDevice);
+
+    List<MobileDevice> getAllDevices(int pageNo, int pageSize);
 }
